@@ -1,0 +1,74 @@
+{
+  "name": "graphql-compose-rest",
+  "version": "0.0.0-semantically-released",
+  "description": "Plugin for `graphql-compose` which derive a graphql types from a REST response.",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/graphql-compose/graphql-compose-rest.git"
+  },
+  "keywords": [
+    "graphql",
+    "compose",
+    "rest"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/graphql-compose/graphql-compose-rest/issues"
+  },
+  "homepage": "https://github.com/graphql-compose/graphql-compose-rest",
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "object-path": "^0.11.4"
+  },
+  "peerDependencies": {
+    "graphql-compose": ">=2.9.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^21.2.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "cz-conventional-changelog": "^2.0.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "flow-bin": "^0.57.3",
+    "graphql": "^0.11.7",
+    "graphql-compose": "^2.9.2",
+    "jest": "^21.2.1",
+    "prettier": "^1.7.4",
+    "rimraf": "^2.6.2",
+    "semantic-release": "^8.2.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ]
+  },
+  "scripts": {
+    "build": "npm run build-cjs && npm run build-flow",
+    "build-cjs": "rimraf lib && babel src --ignore __tests__,__mocks__ -d lib",
+    "build-flow": "find ./src -name '*.js' -not -path '*/__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\/src\\//\\/lib\\//g'`.flow; done",
+    "watch": "jest --watch",
+    "coverage": "jest --coverage --maxWorkers 2",
+    "lint": "eslint --ext .js ./src",
+    "flow": "./node_modules/.bin/flow",
+    "test": "npm run coverage && npm run lint && npm run flow",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  }
+}
