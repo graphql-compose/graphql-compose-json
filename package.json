@@ -42,10 +42,13 @@
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.3.1",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
     "flow-bin": "^0.57.3",
     "graphql": "^0.11.7",
     "graphql-compose": "^2.9.2",
     "jest": "^21.2.1",
+    "node-fetch": "^1.7.3",
     "prettier": "^1.7.4",
     "rimraf": "^2.6.2",
     "semantic-release": "^8.2.1"
@@ -69,6 +72,7 @@
     "lint": "eslint --ext .js ./src",
     "flow": "./node_modules/.bin/flow",
     "test": "npm run coverage && npm run lint && npm run flow",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "fixture-demo": "./node_modules/.bin/babel-node ./src/__fixtures__/app.js"
   }
 }

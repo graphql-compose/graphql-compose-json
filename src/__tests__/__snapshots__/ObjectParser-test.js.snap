@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ObjectParser createTC() match snapshot 1`] = `"PeopleType"`;
+
+exports[`ObjectParser createTC() match snapshot 2`] = `
+Object {
+  "birth_year": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "birth_year",
+    "type": "String",
+  },
+  "created": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "created",
+    "type": "Date",
+  },
+  "edited": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "edited",
+    "type": "String",
+  },
+  "eye_color": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "eye_color",
+    "type": "String",
+  },
+  "films": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "films",
+    "type": "[String]",
+  },
+  "gender": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "gender",
+    "type": "String",
+  },
+  "hair_color": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "hair_color",
+    "type": "String",
+  },
+  "height": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "height",
+    "type": "Int",
+  },
+  "homeworld": Object {
+    "args": Array [],
+    "description": "",
+    "isDeprecated": false,
+    "name": "homeworld",
+    "type": "PeopleType_Homeworld",
+  },
+  "mass": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "mass",
+    "type": "Int",
+  },
+  "name": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "name",
+    "type": "String",
+  },
+  "skin_color": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "skin_color",
+    "type": "String",
+  },
+}
+`;
+
+exports[`ObjectParser createTC() match snapshot 3`] = `"PeopleType_Homeworld"`;
+
+exports[`ObjectParser createTC() match snapshot 4`] = `
+Object {
+  "name": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "name",
+    "type": "String",
+  },
+  "orbital_period": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "orbital_period",
+    "type": "String",
+  },
+  "population": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "population",
+    "type": "Int",
+  },
+  "rotation_period": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "rotation_period",
+    "type": "String",
+  },
+  "surface_water": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "surface_water",
+    "type": "String",
+  },
+  "terrain": Object {
+    "args": Array [],
+    "isDeprecated": false,
+    "name": "terrain",
+    "type": "String",
+  },
+}
+`;
