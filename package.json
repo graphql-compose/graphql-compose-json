@@ -65,7 +65,7 @@
   },
   "scripts": {
     "build": "npm run build-cjs && npm run build-flow",
-    "build-cjs": "rimraf lib && babel src --ignore __tests__,__mocks__ -d lib",
+    "build-cjs": "rimraf lib && babel src --ignore __tests__,__mocks__,__fixtures__ -d lib",
     "build-flow": "find ./src -name '*.js' -not -path '*/__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\/src\\//\\/lib\\//g'`.flow; done",
     "watch": "jest --watch",
     "coverage": "jest --coverage --maxWorkers 2",
