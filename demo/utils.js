@@ -23,10 +23,10 @@ export function createFindListByPageNumberResolver(tc: TypeComposer, urlAddr: st
     args: {
       page: { type: 'Int', defaultValue: 1 },
     },
-    resolve: rp => {
-      return fetch(`https://swapi.co/api/${urlAddr}/?page=${rp.args.page}`).then(r =>
-        r.json().then(json => json.results)
-      );
+    resolve: async rp => {
+      const response = await fetch(`https://swapi.co/api/${urlAddr}/?page=${rp.args.page}`);
+      const data = await response.json();
+      return data.results;
     },
   });
 }
