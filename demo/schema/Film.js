@@ -75,19 +75,11 @@ const responseFromRestApi = {
 
 export const FilmTC = composeWithRest('Film', responseFromRestApi);
 
-// //////////////
-// RESOLVERS aka FieldConfig in GraphQL
-// //////////////
-
 createFindByIdResolver(FilmTC, 'films');
 
 createFindListByPageNumberResolver(FilmTC, 'films');
 
 createFindByUrlListResolver(FilmTC);
-
-// //////////////
-// RELATIONS
-// //////////////
 
 FilmTC.addRelation('characterObjs', {
   resolver: () => PersonTC.getResolver('findByUrlList'),

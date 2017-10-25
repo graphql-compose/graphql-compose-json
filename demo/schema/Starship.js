@@ -30,19 +30,11 @@ const responseFromRestApi = {
 
 export const StarshipTC = composeWithRest('Starships', responseFromRestApi);
 
-// //////////////
-// RESOLVERS aka FieldConfig in GraphQL
-// //////////////
-
 createFindByIdResolver(StarshipTC, 'starships');
 
 createFindListByPageNumberResolver(StarshipTC, 'starships');
 
 createFindByUrlListResolver(StarshipTC);
-
-// //////////////
-// RELATIONS
-// //////////////
 
 StarshipTC.addRelation('pilotObjs', {
   resolver: () => PersonTC.getResolver('findByUrlList'),

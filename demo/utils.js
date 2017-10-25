@@ -21,7 +21,7 @@ export function createFindListByPageNumberResolver(tc: TypeComposer, urlAddr: st
     name: 'findListByPageNumber',
     type: [tc],
     args: {
-      page: 'Int!',
+      page: { type: 'Int', defaultValue: 1 },
     },
     resolve: rp => {
       return fetch(`https://swapi.co/api/${urlAddr}/?page=${rp.args.page}`).then(r =>

@@ -42,10 +42,6 @@ const responseFromRestApi = {
 
 export const PersonTC = composeWithRest('Person', responseFromRestApi);
 
-// //////////////
-// RESOLVERS aka FieldConfig in GraphQL
-// //////////////
-
 createFindByIdResolver(PersonTC, 'people');
 
 createFindListByPageNumberResolver(PersonTC, 'people');

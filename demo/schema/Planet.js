@@ -33,10 +33,6 @@ const responseFromRestApi = {
 
 export const PlanetTC = composeWithRest('Planet', responseFromRestApi);
 
-// //////////////
-// RESOLVERS aka FieldConfig in GraphQL
-// //////////////
-
 createFindByIdResolver(PlanetTC, 'planets');
 
 createFindListByPageNumberResolver(PlanetTC, 'planets');
@@ -51,10 +47,6 @@ PlanetTC.addResolver({
   },
   resolve: rp => fetch(rp.args.url).then(r => r.json()),
 });
-
-// //////////////
-// RELATIONS
-// //////////////
 
 PlanetTC.addRelation('residentObjs', {
   resolver: () => PersonTC.getResolver('findByUrlList'),

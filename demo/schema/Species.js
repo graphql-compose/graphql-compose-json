@@ -30,19 +30,11 @@ const responseFromRestApi = {
 
 export const SpeciesTC = composeWithRest('Species', responseFromRestApi);
 
-// //////////////
-// RESOLVERS aka FieldConfig in GraphQL
-// //////////////
-
 createFindByIdResolver(SpeciesTC, 'species');
 
 createFindListByPageNumberResolver(SpeciesTC, 'species');
 
 createFindByUrlListResolver(SpeciesTC);
-
-// //////////////
-// RELATIONS
-// //////////////
 
 SpeciesTC.addRelation('homeworldObj', {
   resolver: () => PlanetTC.getResolver('findByUrl'),
