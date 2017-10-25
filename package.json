@@ -1,20 +1,15 @@
 {
   "name": "graphql-compose-rest",
   "version": "0.0.0-semantically-released",
-  "description": "Plugin for `graphql-compose` which derive a graphql types from a REST response.",
-  "files": [
-    "lib"
-  ],
+  "description":
+    "Plugin for `graphql-compose` which derive a graphql types from a REST response.",
+  "files": ["lib"],
   "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/graphql-compose/graphql-compose-rest.git"
   },
-  "keywords": [
-    "graphql",
-    "compose",
-    "rest"
-  ],
+  "keywords": ["graphql", "compose", "rest"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/graphql-compose/graphql-compose-rest/issues"
@@ -22,7 +17,11 @@
   "homepage": "https://github.com/graphql-compose/graphql-compose-rest",
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "object-path": "^0.11.4"
+    "object-path": "^0.11.4",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphql": "^0.11.7",
+    "node-fetch": "^1.7.3"
   },
   "peerDependencies": {
     "graphql-compose": ">=2.9.0"
@@ -42,8 +41,6 @@
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.3.1",
-    "express": "^4.16.2",
-    "express-graphql": "^0.6.11",
     "flow-bin": "^0.57.3",
     "graphql": "^0.11.7",
     "graphql-compose": "^2.9.2",
@@ -59,20 +56,22 @@
     }
   },
   "jest": {
-    "roots": [
-      "<rootDir>/src"
-    ]
+    "roots": ["<rootDir>/src"]
   },
   "scripts": {
     "build": "npm run build-cjs && npm run build-flow",
-    "build-cjs": "rimraf lib && babel src --ignore __tests__,__mocks__,__fixtures__ -d lib",
-    "build-flow": "find ./src -name '*.js' -not -path '*/__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\/src\\//\\/lib\\//g'`.flow; done",
+    "build-cjs":
+      "rimraf lib && babel src --ignore __tests__,__mocks__,__fixtures__ -d lib",
+    "build-flow":
+      "find ./src -name '*.js' -not -path '*/__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\/src\\//\\/lib\\//g'`.flow; done",
     "watch": "jest --watch",
     "coverage": "jest --coverage --maxWorkers 2",
     "lint": "eslint --ext .js ./src",
     "flow": "./node_modules/.bin/flow",
     "test": "npm run coverage && npm run lint && npm run flow",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "fixture-demo": "./node_modules/.bin/babel-node ./src/__fixtures__/app.js"
+    "semantic-release":
+      "semantic-release pre && npm publish && semantic-release post",
+    "fixture-demo": "./node_modules/.bin/babel-node ./src/__fixtures__/app.js",
+    "demo": "nodemon ./demo/index.js --exec babel-node"
   }
 }
