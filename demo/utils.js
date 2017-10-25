@@ -10,8 +10,10 @@ export function createFindByIdResolver(tc: TypeComposer, urlAddr: string): void 
     args: {
       id: 'Int!',
     },
-    resolve: rp => {
-      return fetch(`https://swapi.co/api/${urlAddr}/${rp.args.id}/`).then(r => r.json());
+    resolve: async rp => {
+      const res = await fetch(`https://swapi.co/api/${urlAddr}/${rp.args.id}/`);
+      const data = await res.json();
+      return data;
     },
   });
 }
@@ -24,8 +26,8 @@ export function createFindListByPageNumberResolver(tc: TypeComposer, urlAddr: st
       page: { type: 'Int', defaultValue: 1 },
     },
     resolve: async rp => {
-      const response = await fetch(`https://swapi.co/api/${urlAddr}/?page=${rp.args.page}`);
-      const data = await response.json();
+      const res = await fetch(`https://swapi.co/api/${urlAddr}/?page=${rp.args.page}`);
+      const data = await res.json();
       return data.results;
     },
   });
@@ -39,7 +41,11 @@ export function createFindByUrlListResolver(tc: TypeComposer): void {
       urls: '[String]!',
     },
     resolve: rp => {
-      return Promise.all(rp.args.urls.map(url => fetch(url).then(r => r.json())));
+      return rp.args.urls.map(async url => {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data;
+      });
     },
   });
 }
