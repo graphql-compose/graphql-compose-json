@@ -17,11 +17,7 @@
   "homepage": "https://github.com/graphql-compose/graphql-compose-rest",
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "object-path": "^0.11.4",
-    "express": "^4.16.2",
-    "express-graphql": "^0.6.11",
-    "graphql": "^0.11.7",
-    "node-fetch": "^1.7.3"
+    "object-path": "^0.11.4"
   },
   "peerDependencies": {
     "graphql-compose": ">=2.9.0"
@@ -46,6 +42,8 @@
     "graphql-compose": "^2.9.2",
     "jest": "^21.2.1",
     "node-fetch": "^1.7.3",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
     "prettier": "^1.7.4",
     "rimraf": "^2.6.2",
     "semantic-release": "^8.2.0"
