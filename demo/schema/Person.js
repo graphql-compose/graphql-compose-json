@@ -6,7 +6,7 @@ import {
   createFindByIdResolver,
   createFindListByPageNumberResolver,
   createFindByUrlListResolver,
-} from './../utils';
+} from '../utils';
 import { FilmTC } from './Film';
 import { PlanetTC } from './Planet';
 import { VehicleTC } from './Vehicle';

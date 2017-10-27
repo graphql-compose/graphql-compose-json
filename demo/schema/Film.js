@@ -4,7 +4,7 @@ import {
   createFindByIdResolver,
   createFindListByPageNumberResolver,
   createFindByUrlListResolver,
-} from './../utils';
+} from '../utils';
 import composeWithRest from '../../src/index';
 import { PersonTC } from './Person';
 import { PlanetTC } from './Planet';
