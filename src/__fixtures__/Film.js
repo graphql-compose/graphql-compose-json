@@ -1,7 +1,7 @@
 /* @flow */
 
 import fetch from 'node-fetch';
-import composeWithRest from '../index';
+import { composeWithRest } from '../index';
 import { PeopleTC } from './People';
 
 const responseFromRestApi = {

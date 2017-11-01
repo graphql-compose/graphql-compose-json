@@ -1,8 +1,8 @@
 /* @flow */
 
 import fetch from 'node-fetch';
+import { composeWithRest } from '../index';
 import { FilmTC } from './Film';
-import composeWithRest from '../index';
 
 const responseFromRestApi = {
   name: 'Luke Skywalker',
