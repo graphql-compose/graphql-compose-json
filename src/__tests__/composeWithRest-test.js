@@ -1,5 +1,12 @@
+/* @flow */
+
+import fetch from 'node-fetch';
 import { graphql } from 'graphql-compose';
 import schema from '../__fixtures__/Schema';
+import { PeopleTC } from '../__fixtures__/People';
+import composeWithRest from '../index';
+
+const { GraphQLSchema, GraphQLObjectType } = graphql;
 
 describe('composeWithRest', () => {
   it('request film by id', async () => {
@@ -12,7 +19,9 @@ describe('composeWithRest', () => {
         }
       }`
     );
-    expect(res).toEqual({ data: { film: { title: 'A New Hope', episode_id: 4 } } });
+    expect(res).toEqual({
+      data: { film: { title: 'A New Hope', episode_id: 4 } },
+    });
   });
 
   it('request people with films', async () => {
@@ -45,6 +54,97 @@ describe('composeWithRest', () => {
             'https://swapi.co/api/films/3/',
             'https://swapi.co/api/films/1/',
             'https://swapi.co/api/films/7/',
+          ],
+        },
+      },
+    });
+  });
+
+  it('allow set field config via function', async () => {
+    const restApiResponse = {
+      title: 'A New Hope',
+      episode_id: 4,
+      opening_crawl: 'It is a period of civil war of ... freedom to the galaxy....',
+      director: 'George Lucas',
+      producer: 'Gary Kurtz, Rick McCallum',
+      release_date: '1977-05-25',
+      // planets: [
+      //   'https://swapi.co/api/planets/2/',
+      //   'https://swapi.co/api/planets/3/',
+      //   'https://swapi.co/api/planets/1/'
+      // ],
+      planets: () => ({
+        type: 'Int',
+        resolve: source => source.planets.length,
+      }),
+      // characters: [
+      //   'https://swapi.co/api/people/1/',
+      //   'https://swapi.co/api/people/2/',
+      //   'https://swapi.co/api/people/3/',
+      // ],
+      characters: () =>
+        PeopleTC.getResolver('findByUrlList')
+          .wrapResolve(next => rp => {
+            const characterUrls = rp.source.characters;
+            rp.args.urls = characterUrls; // eslint-disable-line
+            return next(rp);
+          })
+          .removeArg('urls'),
+    };
+
+    const FilmTC = composeWithRest('FilmCustom', restApiResponse);
+
+    const schema1 = new GraphQLSchema({
+      query: new GraphQLObjectType({
+        name: 'Query',
+        fields: {
+          film: {
+            type: FilmTC.getType(),
+            resolve: () => {
+              return fetch(`https://swapi.co/api/films/1`).then(r => r.json());
+            },
+          },
+        },
+      }),
+    });
+
+    const res = await graphql.graphql(
+      schema1,
+      `{
+        film {
+          title
+          planets
+          characters {
+            name
+          }
+        }
+      }`
+    );
+
+    expect(res).toEqual({
+      data: {
+        film: {
+          title: 'A New Hope',
+          planets: 3,
+          characters: [
+            { name: 'Luke Skywalker' },
+            { name: 'C-3PO' },
+            { name: 'R2-D2' },
+            { name: 'Darth Vader' },
+            { name: 'Leia Organa' },
+            { name: 'Owen Lars' },
+            { name: 'Beru Whitesun lars' },
+            { name: 'R5-D4' },
+            { name: 'Biggs Darklighter' },
+            { name: 'Obi-Wan Kenobi' },
+            { name: 'Wilhuff Tarkin' },
+            { name: 'Chewbacca' },
+            { name: 'Han Solo' },
+            { name: 'Greedo' },
+            { name: 'Jabba Desilijic Tiure' },
+            { name: 'Wedge Antilles' },
+            { name: 'Jek Tono Porkins' },
+            { name: 'Raymus Antilles' },
           ],
         },
       },

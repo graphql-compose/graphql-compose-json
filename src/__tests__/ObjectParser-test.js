@@ -6,54 +6,54 @@ import OP from '../ObjectParser';
 const { GraphQLFloat, GraphQLBoolean } = graphql;
 
 describe('ObjectParser', () => {
-  describe('getValueType()', () => {
+  describe('getFieldConfig()', () => {
     it('number', () => {
-      expect(OP.getValueType(6)).toBe('Float');
-      expect(OP.getValueType(77.7)).toBe('Float');
+      expect(OP.getFieldConfig(6)).toBe('Float');
+      expect(OP.getFieldConfig(77.7)).toBe('Float');
     });
 
     it('string', () => {
-      expect(OP.getValueType('test')).toBe('String');
+      expect(OP.getFieldConfig('test')).toBe('String');
     });
 
     it('boolean', () => {
-      expect(OP.getValueType(true)).toBe('Boolean');
-      expect(OP.getValueType(false)).toBe('Boolean');
+      expect(OP.getFieldConfig(true)).toBe('Boolean');
+      expect(OP.getFieldConfig(false)).toBe('Boolean');
     });
 
     it('null', () => {
-      expect(OP.getValueType(null)).toBe('JSON');
+      expect(OP.getFieldConfig(null)).toBe('JSON');
     });
 
     describe('array', () => {
       it('of number', () => {
-        expect(OP.getValueType([1, 2, 3])).toEqual(['Float']);
+        expect(OP.getFieldConfig([1, 2, 3])).toEqual(['Float']);
       });
 
       it('of string', () => {
-        expect(OP.getValueType(['a', 'b', 'c'])).toEqual(['String']);
+        expect(OP.getFieldConfig(['a', 'b', 'c'])).toEqual(['String']);
       });
 
       it('of boolean', () => {
-        expect(OP.getValueType([false, true])).toEqual(['Boolean']);
+        expect(OP.getFieldConfig([false, true])).toEqual(['Boolean']);
       });
 
       it('of any', () => {
-        expect(OP.getValueType([null])).toEqual(['JSON']);
+        expect(OP.getFieldConfig([null])).toEqual(['JSON']);
       });
     });
 
     it('process function', () => {
-      const spy = jest.spyOn(OP, 'getValueTypeFromFunction');
+      const spy = jest.spyOn(OP, 'getFieldConfigFromFunction');
       const valueAsFn = () => 'String';
-      OP.getValueType(valueAsFn);
+      OP.getFieldConfig(valueAsFn);
       expect(spy).toHaveBeenCalledWith(valueAsFn);
     });
 
     it('process object', () => {
       const spy = jest.spyOn(OP, 'createTC');
       const valueAsObj = { a: 123 };
-      OP.getValueType(valueAsObj, {
+      OP.getFieldConfig(valueAsObj, {
         typeName: 'ParentTypeName',
         fieldName: 'subDocument',
       });
@@ -61,15 +61,15 @@ describe('ObjectParser', () => {
     });
   });
 
-  describe('getValueTypeFromFunction()', () => {
+  describe('getFieldConfigFromFunction()', () => {
     it('accept type as string', () => {
       const fn = () => 'Int';
-      expect(OP.getValueTypeFromFunction(fn)).toEqual('Int');
+      expect(OP.getFieldConfigFromFunction(fn)).toEqual('Int');
     });
 
     it('accept GraphQLOutputType', () => {
       const fn = () => graphql.GraphQLBoolean;
-      expect(OP.getValueTypeFromFunction(fn)).toEqual(graphql.GraphQLBoolean);
+      expect(OP.getFieldConfigFromFunction(fn)).toEqual(graphql.GraphQLBoolean);
 
       const fn2 = () =>
         new graphql.GraphQLObjectType({
@@ -78,7 +78,7 @@ describe('ObjectParser', () => {
             field1: { type: graphql.GraphQLFloat },
           }),
         });
-      expect(OP.getValueTypeFromFunction(fn2)).toBeInstanceOf(graphql.GraphQLObjectType);
+      expect(OP.getFieldConfigFromFunction(fn2)).toBeInstanceOf(graphql.GraphQLObjectType);
     });
 
     it('accept TypeComposer', () => {
@@ -88,7 +88,20 @@ describe('ObjectParser', () => {
             f1: Int!
           }
         `);
-      expect(OP.getValueTypeFromFunction(fn)).toBeInstanceOf(TypeComposer);
+      expect(OP.getFieldConfigFromFunction(fn)).toBeInstanceOf(TypeComposer);
+    });
+
+    it('accept FieldConfig', () => {
+      const fn = () => ({
+        type: 'String',
+        args: { a1: 'Int' },
+        resolve: 123,
+      });
+      expect(OP.getFieldConfigFromFunction(fn)).toEqual({
+        type: 'String',
+        args: { a1: 'Int' },
+        resolve: 123,
+      });
     });
   });
 

@@ -69,7 +69,6 @@
     "test": "npm run coverage && npm run lint && npm run flow",
     "semantic-release":
       "semantic-release pre && npm publish && semantic-release post",
-    "fixture-demo": "./node_modules/.bin/babel-node ./src/__fixtures__/app.js",
-    "demo": "nodemon ./demo/index.js --exec babel-node"
+    "fixture-demo": "./node_modules/.bin/babel-node ./src/__fixtures__/app.js"
   }
 }

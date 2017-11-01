@@ -1,6 +1,6 @@
 /* @flow */
 
-import { graphql, TypeComposer, upperFirst } from 'graphql-compose';
+import { graphql, TypeComposer, upperFirst, type ComposeFieldConfig } from 'graphql-compose';
 
 const { isOutputType } = graphql;
 
@@ -18,7 +18,7 @@ export default class ObjectParser {
 
     const fields = {};
     Object.keys(json).forEach(k => {
-      fields[k] = this.getValueType(json[k], { typeName: name, fieldName: k });
+      fields[k] = this.getFieldConfig(json[k], { typeName: name, fieldName: k });
     });
 
     tc.setFields(fields);
@@ -26,10 +26,7 @@ export default class ObjectParser {
     return tc;
   }
 
-  static getValueType(
-    value: any,
-    opts: ?GetValueOpts
-  ): string | [string] | graphql.GraphQLOutputType | TypeComposer {
+  static getFieldConfig(value: any, opts: ?GetValueOpts): ComposeFieldConfig<any, any> {
     const typeOf = typeof value;
 
     if (typeOf === 'number') return 'Float';
@@ -42,7 +39,7 @@ export default class ObjectParser {
       if (Array.isArray(value)) {
         const val = value[0];
         if (Array.isArray(val)) return ['JSON'];
-        return [(this.getValueType(val): any)];
+        return [(this.getFieldConfig(val): any)];
       }
 
       if (opts && opts.typeName && opts.fieldName) {
@@ -51,23 +48,22 @@ export default class ObjectParser {
     }
 
     if (typeOf === 'function') {
-      return this.getValueTypeFromFunction(value);
+      return this.getFieldConfigFromFunction(value);
     }
 
     return 'JSON';
   }
 
-  static getValueTypeFromFunction(
-    value: () => any
-  ): string | graphql.GraphQLOutputType | TypeComposer {
-    const type = value();
+  static getFieldConfigFromFunction(value: () => any): ComposeFieldConfig<any, any> {
+    const fc = value();
 
-    if (typeof type === 'string') return type;
-    if (isOutputType(type)) return type;
-    if (type instanceof TypeComposer) return type;
+    if (typeof fc === 'string') return fc;
+    if (isOutputType(fc)) return fc;
+    if (fc instanceof TypeComposer) return fc;
+    if (fc && typeof fc === 'object' && fc.type) return fc;
 
     throw new Error(
-      'Your type function should return: `string`, `GraphQLOutputType`, `TypeComposer`.'
+      'Your type function should return: `string`, `GraphQLOutputType`, `TypeComposer`, `FieldConfig`.'
     );
   }
 }
