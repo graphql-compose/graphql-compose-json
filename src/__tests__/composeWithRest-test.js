@@ -4,9 +4,10 @@ import fetch from 'node-fetch';
 import { graphql } from 'graphql-compose';
 import schema from '../__fixtures__/Schema';
 import { PeopleTC } from '../__fixtures__/People';
-import composeWithRest from '../index';
+import { composeWithRest } from '../index';
 
 const { GraphQLSchema, GraphQLObjectType } = graphql;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('composeWithRest', () => {
   it('request film by id', async () => {
