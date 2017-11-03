@@ -1,7 +1,7 @@
 /* @flow */
 
 import fetch from 'node-fetch';
-import { composeWithRest } from '../index';
+import { composeWithJson } from '../index';
 import { PeopleTC } from './People';
 
 const responseFromRestApi = {
@@ -18,7 +18,7 @@ const responseFromRestApi = {
   ],
 };
 
-export const FilmTC = composeWithRest('Film', responseFromRestApi);
+export const FilmTC = composeWithJson('Film', responseFromRestApi);
 
 // //////////////
 // RESOLVERS aka FieldConfig in GraphQL

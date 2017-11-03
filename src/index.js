@@ -2,7 +2,7 @@
 
 import ObjectParser from './ObjectParser';
 
-const composeWithRest = ObjectParser.createTC.bind(ObjectParser);
+const composeWithJson = ObjectParser.createTC.bind(ObjectParser);
 
-export default composeWithRest;
-export { composeWithRest };
+export default composeWithJson;
+export { composeWithJson };

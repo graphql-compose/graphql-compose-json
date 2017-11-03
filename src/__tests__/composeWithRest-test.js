@@ -4,12 +4,12 @@ import fetch from 'node-fetch';
 import { graphql } from 'graphql-compose';
 import schema from '../__fixtures__/Schema';
 import { PeopleTC } from '../__fixtures__/People';
-import { composeWithRest } from '../index';
+import { composeWithJson } from '../index';
 
 const { GraphQLSchema, GraphQLObjectType } = graphql;
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
-describe('composeWithRest', () => {
+describe('composeWithJson', () => {
   it('request film by id', async () => {
     const res = await graphql.graphql(
       schema,
@@ -93,7 +93,7 @@ describe('composeWithRest', () => {
           .removeArg('urls'),
     };
 
-    const FilmTC = composeWithRest('FilmCustom', restApiResponse);
+    const FilmTC = composeWithJson('FilmCustom', restApiResponse);
 
     const schema1 = new GraphQLSchema({
       query: new GraphQLObjectType({

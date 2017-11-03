@@ -1,34 +1,34 @@
-# graphql-compose-rest
+# graphql-compose-json
 
-[![travis build](https://img.shields.io/travis/graphql-compose/graphql-compose-rest.svg)](https://travis-ci.org/graphql-compose/graphql-compose-rest)
-[![codecov coverage](https://img.shields.io/codecov/c/github/graphql-compose/graphql-compose-rest.svg)](https://codecov.io/github/graphql-compose/graphql-compose-rest)
-[![](https://img.shields.io/npm/v/graphql-compose-rest.svg)](https://www.npmjs.com/package/graphql-compose-rest)
-[![npm](https://img.shields.io/npm/dt/graphql-compose-rest.svg)](http://www.npmtrends.com/graphql-compose-rest)
+[![travis build](https://img.shields.io/travis/graphql-compose/graphql-compose-json.svg)](https://travis-ci.org/graphql-compose/graphql-compose-json)
+[![codecov coverage](https://img.shields.io/codecov/c/github/graphql-compose/graphql-compose-json.svg)](https://codecov.io/github/graphql-compose/graphql-compose-json)
+[![](https://img.shields.io/npm/v/graphql-compose-json.svg)](https://www.npmjs.com/package/graphql-compose-json)
+[![npm](https://img.shields.io/npm/dt/graphql-compose-json.svg)](http://www.npmtrends.com/graphql-compose-json)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Greenkeeper badge](https://badges.greenkeeper.io/graphql-compose/graphql-compose-rest.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/graphql-compose/graphql-compose-json.svg)](https://greenkeeper.io/)
 
 This is a plugin for [graphql-compose](https://github.com/nodkz/graphql-compose), which generates GraphQLTypes from REST response or any JSON. It takes fields from object, determines their types and construct GraphQLObjectType with same shape.  
 
 ## Demo
 
-We have a [Live demo](https://graphql-compose-swapi.herokuapp.com/?query=%7B%0A%20%20person%28id%3A%201%29%20%7B%0A%20%20%20%20name%0A%20%20%20%20films%20%7B%0A%20%20%20%20%20%20title%0A%20%20%20%20%20%20release_date%0A%20%20%20%20%20%20director%0A%20%20%20%20%7D%0A%20%20%20%20homeworld%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%20%20climate%0A%20%20%20%20%20%20diameter%0A%20%20%20%20%7D%0A%20%20%20%20starships%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%20%20cost_in_credits%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A) (source code [repo](https://github.com/lyskos97/graphql-compose-swapi)) which shows how to build an API upon [SWAPI](https://swapi.co) using `graphql-compose-rest`.
+We have a [Live demo](https://graphql-compose-swapi.herokuapp.com/?query=%7B%0A%20%20person%28id%3A%201%29%20%7B%0A%20%20%20%20name%0A%20%20%20%20films%20%7B%0A%20%20%20%20%20%20title%0A%20%20%20%20%20%20release_date%0A%20%20%20%20%20%20director%0A%20%20%20%20%7D%0A%20%20%20%20homeworld%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%20%20climate%0A%20%20%20%20%20%20diameter%0A%20%20%20%20%7D%0A%20%20%20%20starships%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%20%20cost_in_credits%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A) (source code [repo](https://github.com/lyskos97/graphql-compose-swapi)) which shows how to build an API upon [SWAPI](https://swapi.co) using `graphql-compose-json`.
 
 ## Installation
 
 ```bash
-npm install graphql graphql-compose graphql-compose-rest --save
+npm install graphql graphql-compose graphql-compose-json --save
 ```
 
 Modules `graphql`, `graphql-compose`, are located in `peerDependencies`, so they should be installed explicitly in your app. They have global objects and should not have ability to be installed as submodule.
 
 ## Example
 
-You have a sample response object `restApiResponse` which you can pass to `graphql-compose-rest` along with desired type name as your first argument and it will automatically generate a composed GraphQL type `PersonTC`.
+You have a sample response object `restApiResponse` which you can pass to `graphql-compose-json` along with desired type name as your first argument and it will automatically generate a composed GraphQL type `PersonTC`.
 
 ```js
 // person.js
 
-import composeWithRest from 'graphql-compose-rest';
+import composeWithRest from 'graphql-compose-json';
 
 const restApiResponse = {
   name: 'Anakin Skywalker',
@@ -167,4 +167,4 @@ PersonTC.addRelation('filmObjects', {
 
 ## License
 
-[MIT](https://github.com/graphql-compose/graphql-compose-rest/blob/master/LICENSE.md)
+[MIT](https://github.com/graphql-compose/graphql-compose-json/blob/master/LICENSE.md)

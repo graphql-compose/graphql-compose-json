@@ -1,5 +1,5 @@
 {
-  "name": "graphql-compose-rest",
+  "name": "graphql-compose-json",
   "version": "0.0.0-semantically-released",
   "description": "Plugin for `graphql-compose` which derive a graphql types from a REST response.",
   "files": [
@@ -8,7 +8,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/graphql-compose/graphql-compose-rest.git"
+    "url": "https://github.com/graphql-compose/graphql-compose-json.git"
   },
   "keywords": [
     "graphql",
@@ -17,9 +17,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/graphql-compose/graphql-compose-rest/issues"
+    "url": "https://github.com/graphql-compose/graphql-compose-json/issues"
   },
-  "homepage": "https://github.com/graphql-compose/graphql-compose-rest",
+  "homepage": "https://github.com/graphql-compose/graphql-compose-json",
   "dependencies": {
     "babel-runtime": "^6.26.0"
   },
