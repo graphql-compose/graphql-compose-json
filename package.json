@@ -1,7 +1,7 @@
 {
   "name": "graphql-compose-json",
   "version": "0.0.0-semantically-released",
-  "description": "Plugin for `graphql-compose` which derive a graphql types from a REST response.",
+  "description": "This is a plugin for `graphql-compose`, which generates GraphQLTypes from any JSON.",
   "files": [
     "lib"
   ],

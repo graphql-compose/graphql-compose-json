@@ -28,7 +28,7 @@ You have a sample response object `restApiResponse` which you can pass to `graph
 ```js
 // person.js
 
-import composeWithRest from 'graphql-compose-json';
+import composeWithJson from 'graphql-compose-json';
 
 const restApiResponse = {
   name: 'Anakin Skywalker',
@@ -49,7 +49,7 @@ const restApiResponse = {
   ],
 };
 
-export const PersonTC = composeWithRest('Person', responseFromRestApi);
+export const PersonTC = composeWithJson('Person', restApiResponse);
 export const PersonGraphQLType = PersonTC.getType();
 ```
 
@@ -136,7 +136,7 @@ const restApiResponse = {
   };
 }
 
-const PersonTC = composeWithRest('Person', responseFromRestApi);
+const PersonTC = composeWithJson('Person', restApiResponse);
 ```
 
 In case you need to separate custom field definition from your response object there are `graphql-compose` methods made for this purpose.
