@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 import { composeWithJson } from '../index';
 import { FilmTC } from './Film';
 
-const responseFromRestApi = {
+const restApiResponse = {
   name: 'Luke Skywalker',
   height: '172',
   mass: '77',
@@ -20,7 +20,7 @@ const responseFromRestApi = {
   ],
 };
 
-export const PeopleTC = composeWithJson('People', responseFromRestApi);
+export const PeopleTC = composeWithJson('People', restApiResponse);
 
 // //////////////
 // RESOLVERS aka FieldConfig in GraphQL
