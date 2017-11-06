@@ -7,7 +7,7 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Greenkeeper badge](https://badges.greenkeeper.io/graphql-compose/graphql-compose-json.svg)](https://greenkeeper.io/)
 
-This is a plugin for [graphql-compose](https://github.com/nodkz/graphql-compose), which generates GraphQLTypes from REST response or any JSON. It takes fields from object, determines their types and construct GraphQLObjectType with same shape.  
+This is a plugin for [graphql-compose](https://github.com/nodkz/graphql-compose), which generates GraphQLTypes from REST response or any JSON. It takes fields from object, determines their types and construct GraphQLObjectType with same shape.
 
 ## Demo
 
@@ -91,7 +91,9 @@ const schema = new GraphQLSchema({
       person: {
         type: PersonTC.getType(), // get GraphQL type from PersonTC
         args: {
-          id: new GraphQLNonNull(GraphQLInt),
+          id: {
+            type: new GraphQLNonNull(GraphQLInt),
+          }
         },
         resolve: (_, args) =>
           fetch(`https://swapi.co/api/people/${args.id}/`).then(r => r.json()),
@@ -100,7 +102,9 @@ const schema = new GraphQLSchema({
   }),
 });
 ```
+
 Or do the same via `graphql-compose`:
+
 ```js
 import { GQC } from 'graphql-compose';
 
