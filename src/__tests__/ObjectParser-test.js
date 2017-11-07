@@ -43,7 +43,13 @@ describe('ObjectParser', () => {
       });
     });
 
-    it('process object', () => {
+    it('function', () => {
+      const valueAsFn = () => 'abracadabra';
+      const res = OP.getFieldConfig(valueAsFn);
+      expect(res).toBe(valueAsFn);
+    });
+
+    it('object', () => {
       const spy = jest.spyOn(OP, 'createTC');
       const valueAsObj = { a: 123 };
       OP.getFieldConfig(valueAsObj, {
