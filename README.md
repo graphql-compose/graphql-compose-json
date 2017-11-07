@@ -130,7 +130,7 @@ Moreover, `graphql-compose` allows you to pass pre-defined resolvers of other ty
 const restApiResponse = {
   name: 'Anakin Skywalker',
   starships: () =>
-    PeopleTC.getResolver('findByUrlList') // get some standard resolver
+    StarshipTC.getResolver('findByUrlList') // get some standard resolver
       .wrapResolve(next => rp => { // wrap with additional logic
         const starshipsUrls = rp.source.starships;
         rp.args.urls = starshipsUrls; // populate `urls` arg from source
