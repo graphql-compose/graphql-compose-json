@@ -17,6 +17,6 @@ app.use(
 );
 
 app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}`);
-  console.log(`Open http://localhost:${PORT}/graphql`);
+  console.log(`App running on port ${PORT}`);   //eslint-disable-line
+  console.log(`Open http://localhost:${PORT}/graphql`);  //eslint-disable-line
 });
