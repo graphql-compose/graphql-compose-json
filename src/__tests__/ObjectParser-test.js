@@ -43,13 +43,6 @@ describe('ObjectParser', () => {
       });
     });
 
-    it('process function', () => {
-      const spy = jest.spyOn(OP, 'getFieldConfigFromFunction');
-      const valueAsFn = () => 'String';
-      OP.getFieldConfig(valueAsFn);
-      expect(spy).toHaveBeenCalledWith(valueAsFn);
-    });
-
     it('process object', () => {
       const spy = jest.spyOn(OP, 'createTC');
       const valueAsObj = { a: 123 };
@@ -58,50 +51,6 @@ describe('ObjectParser', () => {
         fieldName: 'subDocument',
       });
       expect(spy).toHaveBeenCalledWith('ParentTypeName_SubDocument', valueAsObj);
-    });
-  });
-
-  describe('getFieldConfigFromFunction()', () => {
-    it('accept type as string', () => {
-      const fn = () => 'Int';
-      expect(OP.getFieldConfigFromFunction(fn)).toEqual('Int');
-    });
-
-    it('accept GraphQLOutputType', () => {
-      const fn = () => graphql.GraphQLBoolean;
-      expect(OP.getFieldConfigFromFunction(fn)).toEqual(graphql.GraphQLBoolean);
-
-      const fn2 = () =>
-        new graphql.GraphQLObjectType({
-          name: 'MyType',
-          fields: () => ({
-            field1: { type: graphql.GraphQLFloat },
-          }),
-        });
-      expect(OP.getFieldConfigFromFunction(fn2)).toBeInstanceOf(graphql.GraphQLObjectType);
-    });
-
-    it('accept TypeComposer', () => {
-      const fn = () =>
-        TypeComposer.create(`
-          type MyOtherType {
-            f1: Int!
-          }
-        `);
-      expect(OP.getFieldConfigFromFunction(fn)).toBeInstanceOf(TypeComposer);
-    });
-
-    it('accept FieldConfig', () => {
-      const fn = () => ({
-        type: 'String',
-        args: { a1: 'Int' },
-        resolve: 123,
-      });
-      expect(OP.getFieldConfigFromFunction(fn)).toEqual({
-        type: 'String',
-        args: { a1: 'Int' },
-        resolve: 123,
-      });
     });
   });
 
