@@ -1,8 +1,6 @@
 /* @flow */
 
-import { graphql, TypeComposer, upperFirst, type ComposeFieldConfig } from 'graphql-compose';
-
-const { isOutputType } = graphql;
+import { TypeComposer, upperFirst, type ComposeFieldConfig } from 'graphql-compose';
 
 type GetValueOpts = {
   typeName: string,
@@ -48,22 +46,8 @@ export default class ObjectParser {
     }
 
     if (typeOf === 'function') {
-      return this.getFieldConfigFromFunction(value);
+      return value;
     }
-
     return 'JSON';
-  }
-
-  static getFieldConfigFromFunction(value: () => any): ComposeFieldConfig<any, any> {
-    const fc = value();
-
-    if (typeof fc === 'string') return fc;
-    if (isOutputType(fc)) return fc;
-    if (fc instanceof TypeComposer) return fc;
-    if (fc && typeof fc === 'object' && fc.type) return fc;
-
-    throw new Error(
-      'Your type function should return: `string`, `GraphQLOutputType`, `TypeComposer`, `FieldConfig`.'
-    );
   }
 }
