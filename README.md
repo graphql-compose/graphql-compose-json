@@ -68,7 +68,7 @@ const restApiResponse = {
     'https://swapi.co/api/starships/65/',
     'https://swapi.co/api/starships/39/',
   ],
-  mass: () => 'Int', // by default JSON numbers coerced to Float, here we set up Int
+  mass: () => 'Int!', // by default JSON numbers coerced to Float, here we set up Int
   starships_count: () => ({ // more granular field config with resolve function
     type: 'Int',
     resolve: source => source.starships.length,
@@ -77,6 +77,30 @@ const restApiResponse = {
 
 export const CustomPersonTC = composeWithJson('CustomPerson', restApiResponse);
 export const CustomPersonGraphQLType = CustomPersonTC.getType();
+```
+Will be produced following GraphQL Type from upper shape:
+```js
+const CustomPersonGraphQLType = new GraphQLObjectType({
+  name: 'CustomPerson',
+  fields: () => {
+    name: { 
+      type: GraphQLString, 
+    },
+    birth_year: { 
+      type: GraphQLString, 
+    },
+    starships: { 
+      type: new GraphQLList(GraphQLString), 
+    },
+    mass: { 
+      type: GraphQLInt,
+    },
+    starships_count: {
+      type: GraphQLInt,
+      resolve: source => source.starships.length,
+    },
+  },
+});
 ```
 
 ## Schema building
