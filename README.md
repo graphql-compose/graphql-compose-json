@@ -58,6 +58,8 @@ export const PersonGraphQLType = PersonTC.getType();
 You can write custom field configs directly to a field of your API response object via function (see `mass` and `starships_count` field):
 
 ```js
+import composeWithJson from 'graphql-compose-json';
+
 const restApiResponse = {
   name: 'Anakin Skywalker',
   birth_year: '41.9BBY',
@@ -66,12 +68,15 @@ const restApiResponse = {
     'https://swapi.co/api/starships/65/',
     'https://swapi.co/api/starships/39/',
   ],
-  mass: () => 'Int', // by default numbers coerced to Float, here we set up Int
+  mass: () => 'Int', // by default JSON numbers coerced to Float, here we set up Int
   starships_count: () => ({ // more granular field config with resolve function
     type: 'Int',
     resolve: source => source.starships.length,
   }),
 };
+
+export const CustomPersonTC = composeWithJson('CustomPerson', restApiResponse);
+export const CustomPersonGraphQLType = CustomPersonTC.getType();
 ```
 
 ## Schema building
