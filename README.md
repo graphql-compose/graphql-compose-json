@@ -83,16 +83,16 @@ Will be produced following GraphQL Type from upper shape:
 const CustomPersonGraphQLType = new GraphQLObjectType({
   name: 'CustomPerson',
   fields: () => {
-    name: { 
-      type: GraphQLString, 
+    name: {
+      type: GraphQLString,
     },
-    birth_year: { 
-      type: GraphQLString, 
+    birth_year: {
+      type: GraphQLString,
     },
-    starships: { 
-      type: new GraphQLList(GraphQLString), 
+    starships: {
+      type: new GraphQLList(GraphQLString),
     },
-    mass: { 
+    mass: {
       type: GraphQLInt,
     },
     starships_count: {
@@ -150,6 +150,59 @@ GQC.rootQuery().addFields({
 
 const schema = GQC.buildSchema(); // returns GraphQLSchema
 ```
+
+## Building schema asynchronously
+
+To build the schema at the runtime, you should rewrite the `Schema.js` and insert there an async function which will return a promise:
+```js
+export const buildAsyncSchema = async (): Promise<GraphQLSchema> => {
+  const url = `https://swapi.co/api/people/1`;
+  const data = await fetch(url);
+  const jsonData = await data.json();
+
+  const PeopleTC = composeWithJson('People', jsonData);
+  PeopleTC.addResolver({
+    name: 'findById',
+    type: PeopleTC,
+    args: {
+      id: 'Int!',
+    },
+    resolve: rp => {
+      return fetch(`https://swapi.co/api/people/${rp.args.id}/`).then(r => r.json());
+    },
+  });
+
+  GQC.rootQuery().addFields({
+    person: PeopleTC.getResolver('findById'),
+  });
+
+  const schema = GQC.buildSchema();
+  return schema;
+};
+```
+
+So, you can just import this function and tell to the `express-graphql` that we are passing a promise:
+
+```js
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
+import { buildAsyncSchema } from './Schema';
+
+const PORT = 4000;
+const app = express();
+const promiseSchema = buildAsyncSchema();
+
+app.use(
+  '/graphql',
+  graphqlHTTP(async req => ({
+    schema: await promiseSchema,
+    graphiql: true,
+    context: req,
+  }))
+);
+```
+
+
 
 ## Further customization with `graphql-compose`
 
