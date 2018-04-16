@@ -11,7 +11,6 @@ Object {
     "type": "String",
   },
   "created": Object {
-    "_fieldAsThunk": [Function],
     "args": Array [],
     "isDeprecated": false,
     "name": "created",
@@ -48,7 +47,6 @@ Object {
     "type": "String",
   },
   "height": Object {
-    "_fieldAsThunk": [Function],
     "args": Array [],
     "isDeprecated": false,
     "name": "height",
@@ -62,7 +60,6 @@ Object {
     "type": "PeopleType_Homeworld",
   },
   "mass": Object {
-    "_fieldAsThunk": [Function],
     "args": Array [],
     "isDeprecated": false,
     "name": "mass",
@@ -100,7 +97,6 @@ Object {
     "type": "String",
   },
   "population": Object {
-    "_fieldAsThunk": [Function],
     "args": Array [],
     "isDeprecated": false,
     "name": "population",
