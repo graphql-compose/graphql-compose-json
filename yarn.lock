@@ -2584,9 +2584,9 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.4, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-graphql-compose@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/graphql-compose/-/graphql-compose-4.4.0.tgz#459045017496d63c00051e23d850907bfbf5cede"
+graphql-compose@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/graphql-compose/-/graphql-compose-4.4.1.tgz#2f801bb8e70e8601c21a2e52b629a21c6aba35db"
   dependencies:
     babel-runtime "^6.26.0"
     graphql-type-json "^0.2.1"

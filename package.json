@@ -7,7 +7,7 @@
     "mjs"
   ],
   "main": "lib/index.js",
-  "module": "mjs/index.js",
+  "module": "mjs/index.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/graphql-compose/graphql-compose-json.git"
@@ -47,7 +47,7 @@
     "express-graphql": "^0.6.12",
     "flow-bin": "^0.75.0",
     "graphql": "0.13.2",
-    "graphql-compose": "^4.4.0",
+    "graphql-compose": "^4.4.1",
     "jest": "^23.2.0",
     "node-fetch": "^2.1.2",
     "prettier": "^1.13.6",
