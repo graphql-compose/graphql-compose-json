@@ -151,4 +151,60 @@ describe('composeWithJson', () => {
       },
     });
   });
+
+  it('check shallow objects', async () => {
+    const restApiResponse = {
+      title: 'A New Hope',
+      producer: {
+        name: 'Gary Kurtz, Rick McCallum',
+      },
+    };
+
+    const FilmTC = composeWithJson('FilmCustom', restApiResponse);
+
+    expect(FilmTC.getFieldTC('producer').getTypeName()).toBe('FilmCustom_Producer');
+    expect(FilmTC.getFieldTC('producer').getFieldNames()).toEqual(['name']);
+    expect(
+      FilmTC.getFieldTC('producer')
+        .getFieldType('name')
+        .toString()
+    ).toBe('String');
+
+    const schema1 = new GraphQLSchema({
+      query: new GraphQLObjectType({
+        name: 'Query',
+        fields: {
+          film: {
+            type: FilmTC.getType(),
+            resolve: () => {
+              return restApiResponse;
+            },
+          },
+        },
+      }),
+    });
+
+    const res = await graphql.graphql(
+      schema1,
+      `{
+        film {
+          title
+          producer {
+            name
+          }
+        }
+      }`
+    );
+
+    expect(res).toEqual({
+      data: {
+        film: {
+          title: 'A New Hope',
+          producer: {
+            name: 'Gary Kurtz, Rick McCallum',
+          },
+        },
+      },
+    });
+  });
 });
