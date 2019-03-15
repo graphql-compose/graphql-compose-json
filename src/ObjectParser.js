@@ -1,6 +1,6 @@
 /* @flow */
 
-import { TypeComposer, upperFirst, type ComposeFieldConfig } from 'graphql-compose';
+import { ObjectTypeComposer, upperFirst, type ComposeFieldConfig } from 'graphql-compose';
 
 type GetValueOpts = {
   typeName: string,
@@ -8,11 +8,11 @@ type GetValueOpts = {
 };
 
 export default class ObjectParser {
-  static createTC(name: string, json: Object): TypeComposer {
+  static createTC(name: string, json: Object): ObjectTypeComposer<any, any> {
     if (!json || typeof json !== 'object') {
       throw new Error('You provide empty object in second arg for `createTC` method.');
     }
-    const tc = TypeComposer.create(name);
+    const tc = ObjectTypeComposer.createTemp(name);
 
     const fields = {};
     Object.keys(json).forEach(k => {

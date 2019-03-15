@@ -1,6 +1,6 @@
 /* @flow */
 
-import { graphql, TypeComposer } from 'graphql-compose';
+import { graphql, ObjectTypeComposer } from 'graphql-compose';
 import OP from '../ObjectParser';
 
 const { GraphQLFloat, GraphQLBoolean } = graphql;
@@ -61,9 +61,9 @@ describe('ObjectParser', () => {
   });
 
   describe('createTC()', () => {
-    it('return TypeComposer', () => {
+    it('return ObjectTypeComposer', () => {
       const tc = OP.createTC('MyType', { a: 1 });
-      expect(tc).toBeInstanceOf(TypeComposer);
+      expect(tc).toBeInstanceOf(ObjectTypeComposer);
       expect(tc.getTypeName()).toBe('MyType');
     });
 

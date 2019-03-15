@@ -2,8 +2,8 @@
 
 [![travis build](https://img.shields.io/travis/graphql-compose/graphql-compose-json.svg)](https://travis-ci.org/graphql-compose/graphql-compose-json)
 [![codecov coverage](https://img.shields.io/codecov/c/github/graphql-compose/graphql-compose-json.svg)](https://codecov.io/github/graphql-compose/graphql-compose-json)
-[![](https://img.shields.io/npm/v/graphql-compose-json.svg)](https://www.npmjs.com/package/graphql-compose-json)
-[![npm](https://img.shields.io/npm/dt/graphql-compose-json.svg)](http://www.npmtrends.com/graphql-compose-json)
+[![npm](https://img.shields.io/npm/v/graphql-compose-json.svg)](https://www.npmjs.com/package/graphql-compose-json)
+[![trends](https://img.shields.io/npm/dt/graphql-compose-json.svg)](http://www.npmtrends.com/graphql-compose-json)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Greenkeeper badge](https://badges.greenkeeper.io/graphql-compose/graphql-compose-json.svg)](https://greenkeeper.io/)
 
@@ -78,7 +78,9 @@ const restApiResponse = {
 export const CustomPersonTC = composeWithJson('CustomPerson', restApiResponse);
 export const CustomPersonGraphQLType = CustomPersonTC.getType();
 ```
+
 Will be produced following GraphQL Type from upper shape:
+
 ```js
 const CustomPersonGraphQLType = new GraphQLObjectType({
   name: 'CustomPerson',
@@ -135,9 +137,9 @@ const schema = new GraphQLSchema({
 Or do the same via `graphql-compose`:
 
 ```js
-import { GQC } from 'graphql-compose';
+import { schemaComposer } from 'graphql-compose';
 
-GQC.rootQuery().addFields({
+schemaComposer.Query.addFields({
   person: {
     type: PersonTC,
     args: {
@@ -148,12 +150,13 @@ GQC.rootQuery().addFields({
   },
 }
 
-const schema = GQC.buildSchema(); // returns GraphQLSchema
+const schema = schemaComposer.buildSchema(); // returns GraphQLSchema
 ```
 
 ## Building schema asynchronously
 
 To build the schema at the runtime, you should rewrite the `Schema.js` and insert there an async function which will return a promise:
+
 ```js
 export const buildAsyncSchema = async (): Promise<GraphQLSchema> => {
   const url = `https://swapi.co/api/people/1`;
@@ -172,11 +175,11 @@ export const buildAsyncSchema = async (): Promise<GraphQLSchema> => {
     },
   });
 
-  GQC.rootQuery().addFields({
+  schemaComposer.Query.addFields({
     person: PeopleTC.getResolver('findById'),
   });
 
-  const schema = GQC.buildSchema();
+  const schema = schemaComposer.buildSchema();
   return schema;
 };
 ```
@@ -201,8 +204,6 @@ app.use(
   }))
 );
 ```
-
-
 
 ## Further customization with `graphql-compose`
 
