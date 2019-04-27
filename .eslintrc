@@ -31,14 +31,7 @@
         "functions": "ignore"
       }
     ],
-    "prettier/prettier": [
-      "error",
-      {
-        "printWidth": 100,
-        "singleQuote": true,
-        "trailingComma": "es5"
-      }
-    ],
+    "prettier/prettier": ["error"],
     "import/prefer-default-export": 0,
     "arrow-parens": 0,
     "prefer-destructuring": 0,
