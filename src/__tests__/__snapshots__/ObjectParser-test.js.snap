@@ -54,7 +54,6 @@ Object {
   },
   "homeworld": Object {
     "args": Array [],
-    "description": "",
     "isDeprecated": false,
     "name": "homeworld",
     "type": "PeopleType_Homeworld",

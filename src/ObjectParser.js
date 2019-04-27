@@ -1,6 +1,10 @@
 /* @flow */
 
-import { ObjectTypeComposer, upperFirst, type ComposeFieldConfig } from 'graphql-compose';
+import {
+  ObjectTypeComposer,
+  upperFirst,
+  type ObjectTypeComposerFieldConfigDefinition,
+} from 'graphql-compose';
 
 type GetValueOpts = {
   typeName: string,
@@ -12,19 +16,20 @@ export default class ObjectParser {
     if (!json || typeof json !== 'object') {
       throw new Error('You provide empty object in second arg for `createTC` method.');
     }
+
     const tc = ObjectTypeComposer.createTemp(name);
-
-    const fields = {};
-    Object.keys(json).forEach(k => {
-      fields[k] = this.getFieldConfig(json[k], { typeName: name, fieldName: k });
+    Object.keys(json).forEach(fieldName => {
+      const fieldConfig = this.getFieldConfig(json[fieldName], { typeName: name, fieldName });
+      tc.setField(fieldName, fieldConfig);
     });
-
-    tc.setFields(fields);
 
     return tc;
   }
 
-  static getFieldConfig(value: any, opts: ?GetValueOpts): ComposeFieldConfig<any, any> {
+  static getFieldConfig(
+    value: any,
+    opts: ?GetValueOpts
+  ): ObjectTypeComposerFieldConfigDefinition<any, any> {
     const typeOf = typeof value;
 
     if (typeOf === 'number') return 'Float';
