@@ -47,7 +47,7 @@
     "express-graphql": "^0.8.0",
     "flow-bin": "^0.98.0",
     "graphql": "14.2.1",
-    "graphql-compose": "^6.3.2",
+    "graphql-compose": "^7.0.0",
     "jest": "^24.7.1",
     "node-fetch": "^2.4.1",
     "prettier": "^1.17.0",
