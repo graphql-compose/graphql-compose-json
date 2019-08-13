@@ -42,7 +42,15 @@ export default class ObjectParser {
       if (Array.isArray(value)) {
         const val = value[0];
         if (Array.isArray(val)) return ['JSON'];
-        return [(this.getFieldConfig(val): any)];
+
+        const args =
+          opts && opts.typeName && opts.fieldName
+            ? {
+                typeName: `${opts.typeName}_${upperFirst(opts.fieldName)}`,
+                fieldName: '0',
+              }
+            : {};
+        return [(this.getFieldConfig(val, args): any)];
       }
 
       if (opts && opts.typeName && opts.fieldName) {

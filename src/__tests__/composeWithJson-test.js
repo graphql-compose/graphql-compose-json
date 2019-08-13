@@ -207,4 +207,52 @@ describe('composeWithJson', () => {
       },
     });
   });
+
+  it('check array of swallow objects', async () => {
+    const restApiResponse = {
+      name: 'Luke Skywalker',
+      limbs: [
+        { kind: 'arm', position: 'left', length: 76 },
+        { kind: 'arm', position: 'left', length: 76 },
+        { kind: 'leg', position: 'left', length: 81 },
+        { kind: 'leg', position: 'right', length: 82 },
+      ],
+    };
+
+    const PersonTC = composeWithJson('PersonCustom', restApiResponse);
+    const schema1 = new GraphQLSchema({
+      query: new GraphQLObjectType({
+        name: 'Query',
+        fields: {
+          person: {
+            type: PersonTC.getType(),
+            resolve: () => {
+              return restApiResponse;
+            },
+          },
+        },
+      }),
+    });
+
+    const res = await graphql.graphql(
+      schema1,
+      `{
+        person {
+          name
+          limbs {
+            length
+          }
+        }
+      }`
+    );
+
+    expect(res).toEqual({
+      data: {
+        person: {
+          name: 'Luke Skywalker',
+          limbs: [{ length: 76 }, { length: 76 }, { length: 81 }, { length: 82 }],
+        },
+      },
+    });
+  });
 });

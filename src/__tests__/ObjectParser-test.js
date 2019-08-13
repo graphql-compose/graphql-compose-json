@@ -38,6 +38,16 @@ describe('ObjectParser', () => {
         expect(OP.getFieldConfig([false, true])).toEqual(['Boolean']);
       });
 
+      it('of object', () => {
+        const spy = jest.spyOn(OP, 'createTC');
+        const valueAsArrayOfObjects = [{ a: 123 }, { a: 456 }];
+        OP.getFieldConfig(valueAsArrayOfObjects, {
+          typeName: 'ParentTypeName',
+          fieldName: 'subDocument',
+        });
+        expect(spy).toHaveBeenCalledWith('ParentTypeName_SubDocument_0', valueAsArrayOfObjects[0]);
+      });
+
       it('of any', () => {
         expect(OP.getFieldConfig([null])).toEqual(['JSON']);
       });
