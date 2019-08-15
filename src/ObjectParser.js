@@ -46,8 +46,8 @@ export default class ObjectParser {
         const args =
           opts && opts.typeName && opts.fieldName
             ? {
-                typeName: `${opts.typeName}_${upperFirst(opts.fieldName)}`,
-                fieldName: '0',
+                typeName: opts.typeName,
+                fieldName: opts.fieldName,
               }
             : {};
         return [(this.getFieldConfig(val, args): any)];
