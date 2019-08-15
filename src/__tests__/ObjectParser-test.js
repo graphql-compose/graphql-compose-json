@@ -45,7 +45,7 @@ describe('ObjectParser', () => {
           typeName: 'ParentTypeName',
           fieldName: 'subDocument',
         });
-        expect(spy).toHaveBeenCalledWith('ParentTypeName_SubDocument_0', valueAsArrayOfObjects[0]);
+        expect(spy).toHaveBeenCalledWith('ParentTypeName_SubDocument', valueAsArrayOfObjects[0]);
       });
 
       it('of any', () => {
