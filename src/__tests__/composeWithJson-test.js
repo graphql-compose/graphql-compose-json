@@ -213,13 +213,24 @@ describe('composeWithJson', () => {
       name: 'Luke Skywalker',
       limbs: [
         { kind: 'arm', position: 'left', length: 76 },
-        { kind: 'arm', position: 'left', length: 76 },
-        { kind: 'leg', position: 'left', length: 81 },
-        { kind: 'leg', position: 'right', length: 82 },
+        { kind: 'arm', position: 'right', length: 76, ring: true },
+        { kind: 'leg', position: 'left', length: 81, sock: 'red' },
+        { kind: 'leg', position: 'right', length: 82, sock: 'red' },
       ],
     };
 
     const PersonTC = composeWithJson('PersonCustom', restApiResponse);
+    expect(
+      PersonTC.getFieldTC('limbs')
+        .getFieldTC('ring')
+        .getTypeName()
+    ).toEqual('Boolean');
+    expect(
+      PersonTC.getFieldTC('limbs')
+        .getFieldTC('sock')
+        .getTypeName()
+    ).toEqual('String');
+
     const schema1 = new GraphQLSchema({
       query: new GraphQLObjectType({
         name: 'Query',
@@ -241,6 +252,7 @@ describe('composeWithJson', () => {
           name
           limbs {
             length
+            ring
           }
         }
       }`
@@ -250,7 +262,12 @@ describe('composeWithJson', () => {
       data: {
         person: {
           name: 'Luke Skywalker',
-          limbs: [{ length: 76 }, { length: 76 }, { length: 81 }, { length: 82 }],
+          limbs: [
+            { length: 76, ring: null },
+            { length: 76, ring: true },
+            { length: 81, ring: null },
+            { length: 82, ring: null },
+          ],
         },
       },
     });
