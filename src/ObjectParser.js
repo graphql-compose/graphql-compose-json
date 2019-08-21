@@ -40,8 +40,12 @@ export default class ObjectParser {
       if (value === null) return 'JSON';
 
       if (Array.isArray(value)) {
-        const val = value[0];
-        if (Array.isArray(val)) return ['JSON'];
+        if (Array.isArray(value[0])) return ['JSON'];
+
+        const val =
+          typeof value[0] === 'object' && value[0] !== null
+            ? Object.assign({}, ...value)
+            : value[0];
 
         const args =
           opts && opts.typeName && opts.fieldName
