@@ -9,11 +9,11 @@ const app = express();
 
 app.use(
   '/graphql',
-  graphqlHTTP(req => ({
+  (graphqlHTTP(req => ({
     schema,
     graphiql: true,
     context: req,
-  }))
+  })): any)
 );
 
 app.listen(PORT, () => {
