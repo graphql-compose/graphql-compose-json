@@ -6,72 +6,279 @@ exports[`ObjectParser createTC() match snapshot 2`] = `
 Object {
   "birth_year": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "birth_year",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "birth_year",
     "type": "String",
   },
   "created": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "created",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "Date",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "created",
     "type": "Date",
   },
   "edited": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "edited",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "edited",
     "type": "String",
   },
   "eye_color": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "eye_color",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "eye_color",
     "type": "String",
   },
   "films": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "films",
+      },
+      "type": Object {
+        "kind": "ListType",
+        "type": Object {
+          "kind": "NamedType",
+          "name": Object {
+            "kind": "Name",
+            "value": "String",
+          },
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "films",
     "type": "[String]",
   },
   "gender": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "gender",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "gender",
     "type": "String",
   },
   "hair_color": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "hair_color",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "hair_color",
     "type": "String",
   },
   "height": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "height",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "Int",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "height",
     "type": "Int",
   },
   "homeworld": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "homeworld",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "PeopleType_Homeworld",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "homeworld",
     "type": "PeopleType_Homeworld",
   },
   "mass": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "mass",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "Int",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "mass",
     "type": "Int",
   },
   "name": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "name",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "name",
     "type": "String",
   },
   "skin_color": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "skin_color",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "skin_color",
     "type": "String",
@@ -85,36 +292,138 @@ exports[`ObjectParser createTC() match snapshot 4`] = `
 Object {
   "name": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "name",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "name",
     "type": "String",
   },
   "orbital_period": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "orbital_period",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "orbital_period",
     "type": "String",
   },
   "population": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "population",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "Int",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "population",
     "type": "Int",
   },
   "rotation_period": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "rotation_period",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "rotation_period",
     "type": "String",
   },
   "surface_water": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "surface_water",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "surface_water",
     "type": "String",
   },
   "terrain": Object {
     "args": Array [],
+    "astNode": Object {
+      "arguments": undefined,
+      "description": undefined,
+      "directives": undefined,
+      "kind": "FieldDefinition",
+      "name": Object {
+        "kind": "Name",
+        "value": "terrain",
+      },
+      "type": Object {
+        "kind": "NamedType",
+        "name": Object {
+          "kind": "Name",
+          "value": "String",
+        },
+      },
+    },
     "isDeprecated": false,
     "name": "terrain",
     "type": "String",

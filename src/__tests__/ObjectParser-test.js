@@ -56,7 +56,7 @@ describe('ObjectParser', () => {
     it('function', () => {
       const valueAsFn = () => 'abracadabra';
       const res = OP.getFieldConfig(valueAsFn);
-      expect(res).toBe(valueAsFn);
+      expect(res).toBe('abracadabra');
     });
 
     it('object', () => {

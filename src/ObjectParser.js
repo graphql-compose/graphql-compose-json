@@ -63,7 +63,7 @@ export default class ObjectParser {
     }
 
     if (typeOf === 'function') {
-      return value;
+      return value();
     }
     return 'JSON';
   }
