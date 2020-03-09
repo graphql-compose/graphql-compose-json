@@ -136,7 +136,10 @@ const schema = new GraphQLSchema({
 Or do the same via `graphql-compose`:
 
 ```js
-import { schemaComposer } from 'graphql-compose';
+import { SchemaComposer } from 'graphql-compose';
+
+const schemaComposer = new SchemaComposer();
+const PersonTC = composeWithJson('CustomPerson', restApiResponse, { schemaComposer });
 
 schemaComposer.Query.addFields({
   person: {

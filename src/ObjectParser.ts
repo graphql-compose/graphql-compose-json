@@ -2,6 +2,8 @@ import {
   ObjectTypeComposer,
   upperFirst,
   ObjectTypeComposerFieldConfigDefinition,
+  schemaComposer,
+  SchemaComposer,
 } from 'graphql-compose';
 
 type GetValueOpts = {
@@ -10,12 +12,18 @@ type GetValueOpts = {
 };
 
 export default class ObjectParser {
-  static createTC(name: string, json: Record<string, any>): ObjectTypeComposer<any, any> {
+  static createTC(
+    name: string,
+    json: Record<string, any>,
+    opts?: { schemaComposer: SchemaComposer<any> }
+  ): ObjectTypeComposer<any, any> {
     if (!json || typeof json !== 'object') {
       throw new Error('You provide empty object in second arg for `createTC` method.');
     }
 
-    const tc = ObjectTypeComposer.createTemp(name);
+    const sc = opts?.schemaComposer || schemaComposer;
+
+    const tc = sc.createObjectTC(name);
     Object.keys(json).forEach((fieldName) => {
       const fieldConfig = this.getFieldConfig(json[fieldName], { typeName: name, fieldName });
       tc.setField(fieldName, fieldConfig);
