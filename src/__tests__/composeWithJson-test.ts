@@ -1,5 +1,3 @@
-/* @flow */
-
 import fetch from 'node-fetch';
 import { graphql } from 'graphql-compose';
 import schema from '../__fixtures__/Schema';
@@ -76,7 +74,7 @@ describe('composeWithJson', () => {
       // ],
       planets: () => ({
         type: 'Int',
-        resolve: source => source.planets.length,
+        resolve: (source) => source.planets.length,
       }),
       // characters: [
       //   'https://swapi.co/api/people/1/',
@@ -85,7 +83,7 @@ describe('composeWithJson', () => {
       // ],
       characters: () =>
         PeopleTC.getResolver('findByUrlList')
-          .wrapResolve(next => rp => {
+          .wrapResolve((next) => (rp) => {
             const characterUrls = rp.source.characters;
             rp.args.urls = characterUrls; // eslint-disable-line
             return next(rp);
@@ -102,7 +100,7 @@ describe('composeWithJson', () => {
           film: {
             type: FilmTC.getType(),
             resolve: () => {
-              return fetch(`https://swapi.co/api/films/1`).then(r => r.json());
+              return fetch(`https://swapi.co/api/films/1`).then((r) => r.json());
             },
           },
         },
@@ -163,12 +161,8 @@ describe('composeWithJson', () => {
     const FilmTC = composeWithJson('FilmCustom', restApiResponse);
 
     expect(FilmTC.getFieldTC('producer').getTypeName()).toBe('FilmCustom_Producer');
-    expect(FilmTC.getFieldTC('producer').getFieldNames()).toEqual(['name']);
-    expect(
-      FilmTC.getFieldTC('producer')
-        .getFieldType('name')
-        .toString()
-    ).toBe('String');
+    expect(FilmTC.getFieldOTC('producer').getFieldNames()).toEqual(['name']);
+    expect(FilmTC.getFieldOTC('producer').getFieldTypeName('name')).toBe('String');
 
     const schema1 = new GraphQLSchema({
       query: new GraphQLObjectType({
@@ -220,16 +214,8 @@ describe('composeWithJson', () => {
     };
 
     const PersonTC = composeWithJson('PersonCustom', restApiResponse);
-    expect(
-      PersonTC.getFieldTC('limbs')
-        .getFieldTC('ring')
-        .getTypeName()
-    ).toEqual('Boolean');
-    expect(
-      PersonTC.getFieldTC('limbs')
-        .getFieldTC('sock')
-        .getTypeName()
-    ).toEqual('String');
+    expect(PersonTC.getFieldOTC('limbs').getFieldTypeName('ring')).toEqual('Boolean');
+    expect(PersonTC.getFieldOTC('limbs').getFieldTypeName('sock')).toEqual('String');
 
     const schema1 = new GraphQLSchema({
       query: new GraphQLObjectType({

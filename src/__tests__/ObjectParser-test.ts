@@ -1,5 +1,3 @@
-/* @flow */
-
 import { graphql, ObjectTypeComposer } from 'graphql-compose';
 import OP from '../ObjectParser';
 
@@ -115,9 +113,8 @@ describe('ObjectParser', () => {
       expect(PeopleGraphQLType).toMatchSnapshot();
       expect(PeopleGraphQLType.getFields()).toMatchSnapshot();
 
-      const homeworldSubType = PeopleTC.getFieldType('homeworld');
+      const homeworldSubType = PeopleTC.getFieldType('homeworld') as any;
       expect(homeworldSubType).toMatchSnapshot();
-      // $FlowFixMe
       expect(homeworldSubType.getFields()).toMatchSnapshot();
     });
   });

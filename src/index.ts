@@ -1,5 +1,3 @@
-/* @flow */
-
 import ObjectParser from './ObjectParser';
 
 const composeWithJson = ObjectParser.createTC.bind(ObjectParser);

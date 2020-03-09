@@ -1,5 +1,3 @@
-/* @flow */
-
 import fetch from 'node-fetch';
 import { composeWithJson } from '../index';
 import { PeopleTC } from './People';
@@ -30,8 +28,8 @@ FilmTC.addResolver({
   args: {
     id: 'Int!',
   },
-  resolve: rp => {
-    return fetch(`https://swapi.co/api/films/${rp.args.id}/`).then(r => r.json());
+  resolve: (rp) => {
+    return fetch(`https://swapi.co/api/films/${rp.args.id}/`).then((r) => r.json());
   },
 });
 
@@ -41,7 +39,7 @@ FilmTC.addResolver({
   args: {
     url: 'String!',
   },
-  resolve: rp => fetch(rp.args.url).then(r => r.json()),
+  resolve: (rp) => fetch(rp.args.url).then((r) => r.json()),
 });
 
 FilmTC.addResolver({
@@ -50,8 +48,8 @@ FilmTC.addResolver({
   args: {
     urls: '[String]!',
   },
-  resolve: rp => {
-    return Promise.all(rp.args.urls.map(url => fetch(url).then(r => r.json())));
+  resolve: (rp) => {
+    return Promise.all(rp.args.urls.map((url) => fetch(url).then((r) => r.json())));
   },
 });
 
@@ -62,7 +60,7 @@ FilmTC.addResolver({
 FilmTC.addRelation('characters', {
   resolver: () => PeopleTC.getResolver('findByUrlList'),
   prepareArgs: {
-    urls: source => source.characters,
+    urls: (source) => source.characters,
   },
 });
 
