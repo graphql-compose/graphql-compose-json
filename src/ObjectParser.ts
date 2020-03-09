@@ -1,24 +1,22 @@
-/* @flow */
-
 import {
   ObjectTypeComposer,
   upperFirst,
-  type ObjectTypeComposerFieldConfigDefinition,
+  ObjectTypeComposerFieldConfigDefinition,
 } from 'graphql-compose';
 
 type GetValueOpts = {
-  typeName: string,
-  fieldName: string,
+  typeName?: string;
+  fieldName?: string;
 };
 
 export default class ObjectParser {
-  static createTC(name: string, json: Object): ObjectTypeComposer<any, any> {
+  static createTC(name: string, json: Record<string, any>): ObjectTypeComposer<any, any> {
     if (!json || typeof json !== 'object') {
       throw new Error('You provide empty object in second arg for `createTC` method.');
     }
 
     const tc = ObjectTypeComposer.createTemp(name);
-    Object.keys(json).forEach(fieldName => {
+    Object.keys(json).forEach((fieldName) => {
       const fieldConfig = this.getFieldConfig(json[fieldName], { typeName: name, fieldName });
       tc.setField(fieldName, fieldConfig);
     });
@@ -28,7 +26,7 @@ export default class ObjectParser {
 
   static getFieldConfig(
     value: any,
-    opts: ?GetValueOpts
+    opts?: GetValueOpts | null
   ): ObjectTypeComposerFieldConfigDefinition<any, any> {
     const typeOf = typeof value;
 
@@ -54,7 +52,7 @@ export default class ObjectParser {
                 fieldName: opts.fieldName,
               }
             : {};
-        return [(this.getFieldConfig(val, args): any)];
+        return [this.getFieldConfig(val, args)] as any;
       }
 
       if (opts && opts.typeName && opts.fieldName) {

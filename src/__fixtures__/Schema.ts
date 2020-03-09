@@ -1,5 +1,3 @@
-/* @flow */
-
 import { schemaComposer } from 'graphql-compose';
 import { FilmTC } from './Film';
 import { PeopleTC } from './People';

@@ -3,11 +3,10 @@
   "version": "0.0.0-semantically-released",
   "description": "This is a plugin for `graphql-compose`, which generates GraphQLTypes from any JSON.",
   "files": [
-    "lib",
-    "mjs"
+    "lib"
   ],
   "main": "lib/index.js",
-  "module": "mjs/index.mjs",
+  "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/graphql-compose/graphql-compose-json.git"
@@ -26,18 +25,15 @@
     "graphql-compose": "^7.0.4"
   },
   "devDependencies": {
-    "@babel/cli": "7.8.4",
-    "@babel/core": "7.8.4",
-    "@babel/node": "7.8.4",
-    "@babel/plugin-proposal-object-rest-spread": "7.8.3",
-    "@babel/plugin-transform-flow-strip-types": "7.8.3",
-    "@babel/plugin-transform-runtime": "7.8.3",
-    "@babel/preset-env": "7.8.4",
-    "@babel/preset-flow": "7.8.3",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "25.1.0",
-    "cross-env": "7.0.0",
+    "@types/express": "^4.17.3",
+    "@types/express-graphql": "^0.9.0",
+    "@types/graphql": "^14.5.0",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.0",
+    "@types/node-fetch": "^2.5.5",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "cross-env": "7.0.2",
     "eslint": "6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "6.10.0",
@@ -46,27 +42,26 @@
     "eslint-plugin-prettier": "3.1.2",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
-    "flow-bin": "0.118.0",
     "graphql": "14.6.0",
-    "graphql-compose": "7.12.0",
+    "graphql-compose": "7.14.0",
     "jest": "25.1.0",
     "node-fetch": "^2.6.0",
     "prettier": "1.19.1",
     "rimraf": "3.0.2",
-    "semantic-release": "^15.13.28"
+    "semantic-release": "17.0.4",
+    "ts-jest": "^25.2.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
   },
   "scripts": {
-    "build": "npm run build-cjs && npm run build-mjs",
-    "build-cjs": "rimraf lib && BABEL_ENV=cjs babel src --ignore __tests__,__mocks__,__fixtures__ -d lib && COPY_TO_FOLDER=lib npm run build-flow",
-    "build-mjs": "rimraf mjs && BABEL_ENV=mjs babel src --ignore __tests__,__mocks__ -d mjs && yarn build-mjs-rename && COPY_TO_FOLDER=mjs npm run build-flow",
-    "build-mjs-rename": "find ./mjs -name \"*.js\" -exec bash -c 'mv \"$1\" \"${1%.js}\".mjs' - '{}' \\;",
-    "build-flow": "find ./src -name '*.js' -not -path '*/__*' | while read filepath; do cp $filepath `echo ./${COPY_TO_FOLDER:-lib}$filepath | sed 's/.\\/src\\//\\//g'`.flow; done",
+    "build": "rimraf lib && tsc -p ./tsconfig.build.json",
     "watch": "jest --watch",
     "coverage": "jest --coverage --maxWorkers 2",
-    "lint": "eslint --ext .js ./src",
-    "flow": "./node_modules/.bin/flow",
-    "test": "cross-env NODE_ENV=test npm run coverage && npm run lint && npm run flow",
+    "lint": "yarn eslint && yarn tscheck",
+    "eslint": "eslint --ext .ts ./src",
+    "tscheck": "tsc --noEmit",
+    "test": "cross-env NODE_ENV=test npm run coverage && npm run lint",
     "semantic-release": "semantic-release",
-    "fixture-demo": "./node_modules/.bin/babel-node ./src/__fixtures__/app.js"
+    "fixture-demo": "ts-node ./src/__fixtures__/app.ts"
   }
 }
