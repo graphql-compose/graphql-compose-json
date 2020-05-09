@@ -1,43 +1,43 @@
-import { ObjectTypeComposer } from 'graphql-compose';
-import OP from '../ObjectParser';
+import { InputTypeComposer } from 'graphql-compose';
+import IOP from '../InputObjectParser';
 
-describe('ObjectParser', () => {
+describe('InputObjectParser', () => {
   describe('getFieldConfig()', () => {
     it('number', () => {
-      expect(OP.getFieldConfig(6)).toBe('Float');
-      expect(OP.getFieldConfig(77.7)).toBe('Float');
+      expect(IOP.getFieldConfig(6)).toBe('Float');
+      expect(IOP.getFieldConfig(77.7)).toBe('Float');
     });
 
     it('string', () => {
-      expect(OP.getFieldConfig('test')).toBe('String');
+      expect(IOP.getFieldConfig('test')).toBe('String');
     });
 
     it('boolean', () => {
-      expect(OP.getFieldConfig(true)).toBe('Boolean');
-      expect(OP.getFieldConfig(false)).toBe('Boolean');
+      expect(IOP.getFieldConfig(true)).toBe('Boolean');
+      expect(IOP.getFieldConfig(false)).toBe('Boolean');
     });
 
     it('null', () => {
-      expect(OP.getFieldConfig(null)).toBe('JSON');
+      expect(IOP.getFieldConfig(null)).toBe('JSON');
     });
 
     describe('array', () => {
       it('of number', () => {
-        expect(OP.getFieldConfig([1, 2, 3])).toEqual(['Float']);
+        expect(IOP.getFieldConfig([1, 2, 3])).toEqual(['Float']);
       });
 
       it('of string', () => {
-        expect(OP.getFieldConfig(['a', 'b', 'c'])).toEqual(['String']);
+        expect(IOP.getFieldConfig(['a', 'b', 'c'])).toEqual(['String']);
       });
 
       it('of boolean', () => {
-        expect(OP.getFieldConfig([false, true])).toEqual(['Boolean']);
+        expect(IOP.getFieldConfig([false, true])).toEqual(['Boolean']);
       });
 
       it('of object', () => {
-        const spy = jest.spyOn(OP, 'createTC');
+        const spy = jest.spyOn(IOP, 'createITC');
         const valueAsArrayOfObjects = [{ a: 123 }, { a: 456 }];
-        OP.getFieldConfig(valueAsArrayOfObjects, {
+        IOP.getFieldConfig(valueAsArrayOfObjects, {
           typeName: 'ParentTypeName',
           fieldName: 'subDocument',
         });
@@ -45,20 +45,20 @@ describe('ObjectParser', () => {
       });
 
       it('of any', () => {
-        expect(OP.getFieldConfig([null])).toEqual(['JSON']);
+        expect(IOP.getFieldConfig([null])).toEqual(['JSON']);
       });
     });
 
     it('function', () => {
       const valueAsFn = () => 'abracadabra';
-      const res = OP.getFieldConfig(valueAsFn);
+      const res = IOP.getFieldConfig(valueAsFn);
       expect(res).toBe('abracadabra');
     });
 
     it('object', () => {
-      const spy = jest.spyOn(OP, 'createTC');
+      const spy = jest.spyOn(IOP, 'createITC');
       const valueAsObj = { a: 123 };
-      OP.getFieldConfig(valueAsObj, {
+      IOP.getFieldConfig(valueAsObj, {
         typeName: 'ParentTypeName',
         fieldName: 'subDocument',
       });
@@ -66,22 +66,22 @@ describe('ObjectParser', () => {
     });
   });
 
-  describe('createTC()', () => {
-    it('return ObjectTypeComposer', () => {
-      const tc = OP.createTC('MyType', { a: 1 });
-      expect(tc).toBeInstanceOf(ObjectTypeComposer);
+  describe('createITC()', () => {
+    it('return InputTypeComposer', () => {
+      const tc = IOP.createITC('MyType', { a: 1 });
+      expect(tc).toBeInstanceOf(InputTypeComposer);
       expect(tc.getTypeName()).toBe('MyType');
     });
 
     it('creates fields', () => {
-      const tc = OP.createTC('MyType', { a: 1, b: true });
+      const tc = IOP.createITC('MyType', { a: 1, b: true });
       expect(tc.getFieldNames()).toEqual(['a', 'b']);
       expect(tc.getFieldTypeName('a')).toBe('Float');
       expect(tc.getFieldTypeName('b')).toBe('Boolean');
     });
 
     it('match snapshot', () => {
-      const PeopleTC = OP.createTC('PeopleType', {
+      const PeopleITC = IOP.createITC('PeopleInput', {
         name: 'Luke Skywalker',
         height: () => 'Int',
         mass: () => 'Int',
@@ -107,8 +107,8 @@ describe('ObjectParser', () => {
         edited: '2014-12-20T21:17:56.891000Z',
       });
 
-      expect(PeopleTC.toSDL({ deep: true, omitScalars: true })).toMatchInlineSnapshot(`
-        "type PeopleType {
+      expect(PeopleITC.toSDL({ deep: true, omitScalars: true })).toMatchInlineSnapshot(`
+        "input PeopleInput {
           name: String
           height: Int
           mass: Int
@@ -117,13 +117,13 @@ describe('ObjectParser', () => {
           eye_color: String
           birth_year: String
           gender: String
-          homeworld: PeopleType_Homeworld
+          homeworld: PeopleInput_Homeworld
           films: [String]
           created: Date
           edited: String
         }
 
-        type PeopleType_Homeworld {
+        input PeopleInput_Homeworld {
           name: String
           rotation_period: String
           orbital_period: String

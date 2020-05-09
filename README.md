@@ -27,7 +27,7 @@ You have a sample response object `restApiResponse` which you can pass to `graph
 ```js
 // person.js
 
-import composeWithJson from 'graphql-compose-json';
+import { composeWithJson, composeInputWithJson } from 'graphql-compose-json';
 
 const restApiResponse = {
   name: 'Anakin Skywalker',
@@ -49,7 +49,10 @@ const restApiResponse = {
 };
 
 export const PersonTC = composeWithJson('Person', restApiResponse);
-export const PersonGraphQLType = PersonTC.getType();
+export const PersonGraphQLType = PersonTC.getType(); // GraphQLObjectType
+
+export const PersonITC = composeInputWithJson('PersonInput', restApiResponse);
+export const PersonGraphQLInput = PersonITC.getType(); // GraphQLInputObjectType
 ```
 
 ## Customization
@@ -57,7 +60,7 @@ export const PersonGraphQLType = PersonTC.getType();
 You can write custom field configs directly to a field of your API response object via function (see `mass` and `starships_count` field):
 
 ```js
-import composeWithJson from 'graphql-compose-json';
+import { composeWithJson } from 'graphql-compose-json';
 
 const restApiResponse = {
   name: 'Anakin Skywalker',
