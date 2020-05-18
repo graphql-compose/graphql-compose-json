@@ -1,4 +1,4 @@
-import { ObjectTypeComposer } from 'graphql-compose';
+import { ObjectTypeComposer, schemaComposer } from 'graphql-compose';
 import OP from '../ObjectParser';
 
 describe('ObjectParser', () => {
@@ -105,6 +105,7 @@ describe('ObjectParser', () => {
         ],
         created: () => 'Date',
         edited: '2014-12-20T21:17:56.891000Z',
+        meta: schemaComposer.createObjectTC('type Meta { key: String, val: String }').List,
       });
 
       expect(PeopleTC.toSDL({ deep: true, omitScalars: true })).toMatchInlineSnapshot(`
@@ -121,6 +122,7 @@ describe('ObjectParser', () => {
           films: [String]
           created: Date
           edited: String
+          meta: [Meta]
         }
 
         type PeopleType_Homeworld {
@@ -130,6 +132,11 @@ describe('ObjectParser', () => {
           terrain: String
           surface_water: String
           population: Int
+        }
+
+        type Meta {
+          key: String
+          val: String
         }"
       `);
     });

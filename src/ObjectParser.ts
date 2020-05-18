@@ -4,6 +4,7 @@ import {
   ObjectTypeComposerFieldConfigDefinition,
   schemaComposer,
   SchemaComposer,
+  isComposeOutputType,
 } from 'graphql-compose';
 
 type GetValueOpts = {
@@ -41,6 +42,10 @@ export default class ObjectParser {
     if (typeOf === 'number') return 'Float';
     if (typeOf === 'string') return 'String';
     if (typeOf === 'boolean') return 'Boolean';
+
+    if (isComposeOutputType(value)) {
+      return value;
+    }
 
     if (typeOf === 'object') {
       if (value === null) return 'JSON';

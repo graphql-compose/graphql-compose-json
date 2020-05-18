@@ -1,4 +1,4 @@
-import { InputTypeComposer } from 'graphql-compose';
+import { InputTypeComposer, schemaComposer } from 'graphql-compose';
 import IOP from '../InputObjectParser';
 
 describe('InputObjectParser', () => {
@@ -87,7 +87,7 @@ describe('InputObjectParser', () => {
         mass: () => 'Int',
         hair_color: 'blond',
         skin_color: 'fair',
-        eye_color: 'blue',
+        eye_color: schemaComposer.createEnumTC(`enum EyeColor { blue brown }`),
         birth_year: '19BBY',
         gender: 'male',
         homeworld: {
@@ -105,6 +105,7 @@ describe('InputObjectParser', () => {
         ],
         created: () => 'Date',
         edited: '2014-12-20T21:17:56.891000Z',
+        filter: schemaComposer.createInputTC(`input FilterInput { name: String, mass: Int }`),
       });
 
       expect(PeopleITC.toSDL({ deep: true, omitScalars: true })).toMatchInlineSnapshot(`
@@ -114,13 +115,19 @@ describe('InputObjectParser', () => {
           mass: Int
           hair_color: String
           skin_color: String
-          eye_color: String
+          eye_color: EyeColor
           birth_year: String
           gender: String
           homeworld: PeopleInput_Homeworld
           films: [String]
           created: Date
           edited: String
+          filter: FilterInput
+        }
+
+        enum EyeColor {
+          blue
+          brown
         }
 
         input PeopleInput_Homeworld {
@@ -130,6 +137,11 @@ describe('InputObjectParser', () => {
           terrain: String
           surface_water: String
           population: Int
+        }
+
+        input FilterInput {
+          name: String
+          mass: Int
         }"
       `);
     });

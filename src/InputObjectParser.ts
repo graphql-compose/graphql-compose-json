@@ -4,6 +4,7 @@ import {
   InputTypeComposerFieldConfigDefinition,
   schemaComposer,
   SchemaComposer,
+  isComposeInputType,
 } from 'graphql-compose';
 
 type GetValueOpts = {
@@ -41,6 +42,10 @@ export default class InputObjectParser {
     if (typeOf === 'number') return 'Float';
     if (typeOf === 'string') return 'String';
     if (typeOf === 'boolean') return 'Boolean';
+
+    if (isComposeInputType(value)) {
+      return value;
+    }
 
     if (typeOf === 'object') {
       if (value === null) return 'JSON';
