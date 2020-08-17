@@ -76,7 +76,7 @@ describe.skip('composeWithJson', () => {
       // ],
       planets: () => ({
         type: 'Int',
-        resolve: (source) => source.planets.length,
+        resolve: (source: any) => source.planets.length,
       }),
       // characters: [
       //   'https://swapi.co/api/people/1/',

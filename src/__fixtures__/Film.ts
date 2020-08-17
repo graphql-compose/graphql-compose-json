@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import { composeWithJson } from '../index';
 import { PeopleTC } from './People';
+import { ResolverResolveParams } from 'graphql-compose';
 
 const restApiResponse = {
   title: 'The Empire Strikes Back',
@@ -28,7 +29,7 @@ FilmTC.addResolver({
   args: {
     id: 'Int!',
   },
-  resolve: (rp) => {
+  resolve: (rp: ResolverResolveParams<any, any>) => {
     return fetch(`https://swapi.co/api/films/${rp.args.id}/`).then((r) => r.json());
   },
 });
@@ -39,7 +40,7 @@ FilmTC.addResolver({
   args: {
     url: 'String!',
   },
-  resolve: (rp) => fetch(rp.args.url).then((r) => r.json()),
+  resolve: (rp: ResolverResolveParams<any, any>) => fetch(rp.args.url).then((r) => r.json()),
 });
 
 FilmTC.addResolver({
@@ -48,8 +49,8 @@ FilmTC.addResolver({
   args: {
     urls: '[String]!',
   },
-  resolve: (rp) => {
-    return Promise.all(rp.args.urls.map((url) => fetch(url).then((r) => r.json())));
+  resolve: (rp: ResolverResolveParams<any, any>) => {
+    return Promise.all(rp.args.urls.map((url: string) => fetch(url).then((r) => r.json())));
   },
 });
 
