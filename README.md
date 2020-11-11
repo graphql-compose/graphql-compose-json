@@ -169,19 +169,17 @@ export const buildAsyncSchema = async (): Promise<GraphQLSchema> => {
   const jsonData = await data.json();
 
   const PeopleTC = composeWithJson('People', jsonData);
-  PeopleTC.addResolver({
-    name: 'findById',
-    type: PeopleTC,
-    args: {
-      id: 'Int!',
-    },
-    resolve: rp => {
-      return fetch(`https://swapi.co/api/people/${rp.args.id}/`).then(r => r.json());
-    },
-  });
 
   schemaComposer.Query.addFields({
-    person: PeopleTC.getResolver('findById'),
+    person: {
+      type: PeopleTC,
+      args: {
+        id: 'Int!',
+      },
+      resolve: (_, args) => {
+        return fetch(`https://swapi.co/api/people/${args.id}/`).then(r => r.json());
+      },
+    },
   });
 
   const schema = schemaComposer.buildSchema();
