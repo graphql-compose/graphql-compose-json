@@ -5,7 +5,6 @@ import { PeopleTC } from '../__fixtures__/People';
 import { composeWithJson } from '../index';
 
 const { GraphQLSchema, GraphQLObjectType } = graphql;
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 // There is a HEROKU problem with https://swapi.co
 // Disable tests temporary
