@@ -42,6 +42,7 @@ export default class ObjectParser {
     if (typeOf === 'number') return 'Float';
     if (typeOf === 'string') return 'String';
     if (typeOf === 'boolean') return 'Boolean';
+    if (value instanceof Date) return 'Date';
 
     if (isComposeOutputType(value)) {
       return value;
